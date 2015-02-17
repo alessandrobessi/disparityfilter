@@ -8,7 +8,9 @@ get.backbone(graph, alpha = 0.05, directed = FALSE)
 }
 \arguments{
 \item{graph}{igraph graph object. The original graph.}
+
 \item{alpha}{Statistical significance level. By default is set to 0.05.}
+
 \item{directed}{Logical, whether the network is directed or undirected. By default is set to FALSE.}
 }
 \description{
