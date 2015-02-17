@@ -13,10 +13,18 @@
 #'
 get.backbone = function(graph, alpha = 0.05, directed = FALSE)
 {
-  require(igraph)
+  # load igraph package
+  if(!require(igraph))
+    {
+    install.packages("igraph"); require(igraph)
+    }
+
   G = graph
+  # get adjacency matrix
   adj = as.matrix(get.adjacency(G, attr = "weight"))
   N = as.numeric(dim(adj)[1])
+
+  # initialize backbone adjacency matrix
   backbone = matrix(0, ncol = N, nrow = N)
   colnames(backbone) = colnames(adj)
   rownames(backbone) = rownames(adj)
@@ -26,6 +34,7 @@ get.backbone = function(graph, alpha = 0.05, directed = FALSE)
   cat("\nOriginal graph\n")
   print(G)
 
+  # undirected
   if (directed == FALSE)
   {
   for (i in 1:N)
@@ -44,6 +53,8 @@ get.backbone = function(graph, alpha = 0.05, directed = FALSE)
         }
       }
     }
+
+  # remove nodes with degree equal to zero
   index = which(rowSums(backbone) == 0)
   backbone = backbone[-index,-index]
 
@@ -70,6 +81,8 @@ get.backbone = function(graph, alpha = 0.05, directed = FALSE)
         }
       }
     }
+
+    # remove nodes with degree equal to zero
     index = which(rowSums(backbone) == 0)
     backbone = backbone[-index,-index]
 
