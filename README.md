@@ -16,7 +16,7 @@ get.backbone(graph = G, alpha = 0.05, directed = FALSE)
 
 ### How to quickly install the `disparityfilter` package in R
 ```
-install.packages("devtools")
+install.packages('devtools')
 library(devtools)
 devtools::install_github('alessandrobessi/disparityfilter')
 library(disparityfilter)
