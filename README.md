@@ -10,7 +10,7 @@ get.backbone(graph = G, alpha = 0.05, directed = FALSE)
 ```
 
 ### Arguments
-* `graph`	iGraph graph object. The original weighted graph.
+* `graph`	iGraph graph object.
 * `alpha`	Statistical significance level. By default is set to 0.05.
 * `directed`	Logical, whether the network is directed or undirected. By default is set to FALSE.
 
@@ -21,10 +21,4 @@ library(devtools)
 devtools::install_github('alessandrobessi/disparityfilter')
 library(disparityfilter)
 ?get.backbone
-```
-
-### Example
-```
-G_backbone = get.backbone(graph = G, alpha = 0.05, directed = FALSE)
-summary(G_backbone)
 ```

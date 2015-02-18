@@ -59,8 +59,12 @@ get.backbone = function(graph, alpha = 0.05, directed = FALSE)
         }
       }
     }
+
     index = which(rowSums(backbone) == 0)
-    backbone = backbone[-index,-index]
+    if (length(index) > 0)
+    {
+      backbone = backbone[-index,-index]
+    }
 
     G_backbone = graph.adjacency(backbone, weighted = TRUE, mode = "undirected")
     G_backbone
@@ -91,7 +95,10 @@ get.backbone = function(graph, alpha = 0.05, directed = FALSE)
       }
     }
     index = which(rowSums(backbone) == 0)
-    backbone = backbone[-index,-index]
+    if (length(index) > 0)
+    {
+      backbone = backbone[-index,-index]
+    }
 
     G_backbone = graph.adjacency(backbone, weighted = TRUE,
                                  mode = "directed")
