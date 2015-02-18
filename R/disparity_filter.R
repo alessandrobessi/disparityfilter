@@ -38,29 +38,32 @@ get.backbone = function(graph, alpha = 0.05, directed = FALSE)
   # undirected
   if (directed == FALSE)
   {
-  for (i in 1:N)
-  {
-      k = length(which(adj[i,] > 0))
-      if (k > 1)
+    for (i in 1:N)
+    {
+      k_i = length(which(adj[i,] > 0))
+      if (k_i > 1)
       {
+        integrand_i = function(x){(1-x)^(k_i-2)}
+
         for (j in 1:N)
         {
-          pij = adj[i,j] / sum(adj[i,])
-          if ( (1 - pij)^(k-1) < alpha )
+          p_ij = adj[i,j] / sum(adj[i,])
+          integration = integrate(integrand_i, lower = 0, upper = p_ij)
+          alpha_ij = 1 - (k_i - 1) * integration$value
+          #alpha_ij = (1 - p_ij)^(k_i - 1)
+
+          if ( alpha_ij < alpha )
           {
-          backbone[i,j] = adj[i,j]
+            backbone[i,j] = adj[i,j]
           }
-          else {backbone[i,j] = 0}
         }
       }
     }
+    index = which(rowSums(backbone) == 0)
+    backbone = backbone[-index,-index]
 
-  # remove nodes with degree equal to zero
-  index = which(rowSums(backbone) == 0)
-  backbone = backbone[-index,-index]
-
-  G_backbone = graph.adjacency(backbone, weighted = TRUE,
-                               mode = "undirected")
+    G_backbone = graph.adjacency(backbone, weighted = TRUE, mode = "undirected")
+    G_backbone
   }
 
   # directed
@@ -68,22 +71,25 @@ get.backbone = function(graph, alpha = 0.05, directed = FALSE)
   {
     for (i in 1:N)
     {
-      k = length(which(adj[i,] > 0))
-      if (k > 1)
+      k_i = length(which(adj[i,] > 0))
+      if (k_i > 1)
       {
+        integrand_i = function(x){(1-x)^(k_i-2)}
+
         for (j in 1:N)
         {
-          pij = adj[i,j] / sum(adj[i,])
-          if ( (1 - pij)^(k-1) < alpha )
+          p_ij = adj[i,j] / sum(adj[i,])
+          integration = integrate(integrand_i, lower = 0, upper = p_ij)
+          alpha_ij = 1 - (k_i - 1) * integration$value
+          #alpha_ij = (1 - p_ij)^(k_i - 1)
+
+          if ( alpha_ij < alpha )
           {
             backbone[i,j] = adj[i,j]
           }
-          else {backbone[i,j] = 0}
         }
       }
     }
-
-    # remove nodes with degree equal to zero
     index = which(rowSums(backbone) == 0)
     backbone = backbone[-index,-index]
 
