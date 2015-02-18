@@ -14,11 +14,12 @@ get.backbone(graph, alpha = 0.05, directed = FALSE)
 \item{directed}{Logical, whether the network is directed or undirected. By default is set to FALSE.}
 }
 \description{
-Disparity filter is a network reduction algorithm to extract the backbone structure of both directed and undirected weighted networks. Disparity filter can reduce the network without destroying the multi-scale nature of the network. The algorithm has been developed by M. Angeles Serrano, Marian Boguna, and Alessandro Vespignani in "Extracting the multiscale backbone of complex weighted networks", Proceedings of the national academy of sciences 106 (16): 6483-6488 [doi:10.1073/pnas.0808904106]
+Disparity filter is a network reduction algorithm to extract the backbone structure of both directed and undirected weighted networks. Disparity filter can reduce the network without destroying the multi-scale nature of the network. The algorithm has been developed by M. Angeles Serrano, Marian Boguna, and Alessandro Vespignani in "Extracting the multiscale backbone of complex weighted networks", Proceedings of the national academy of sciences 106 (16).
 }
 \examples{
+head(network)
+G = graph.data.frame(network, directed = FALSE)
 G_backbone = get.backbone(graph = G, alpha = 0.05, directed = FALSE)
-summary(G_backbone)
 }
 \keyword{backbone}
 \keyword{disparity}

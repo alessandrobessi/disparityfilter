@@ -18,7 +18,7 @@ get.backbone(graph = G, alpha = 0.05, directed = FALSE)
 ```
 install.packages("devtools")
 library(devtools)
-devtools::install_github('alessandrobessi/disparityfilter')
+devtools::install_github('disparityfilter','alessandrobessi')
 library(disparityfilter)
 ?get.backbone
 ```
