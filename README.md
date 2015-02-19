@@ -28,4 +28,5 @@ library(devtools)
 devtools::install_github('disparityfilter','alessandrobessi')
 library(disparityfilter)
 ?get.backbone
+?network
 ```
