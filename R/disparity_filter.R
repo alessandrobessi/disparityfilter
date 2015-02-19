@@ -15,94 +15,58 @@
 
 get.backbone = function(graph, alpha = 0.05, directed = FALSE)
 {
-
   G = graph
-  # get adjacency matrix
-  adj = as.matrix(get.adjacency(G, attr = "weight"))
-  N = as.numeric(dim(adj)[1])
 
-  # initialize backbone adjacency matrix
-  backbone = matrix(0, ncol = N, nrow = N)
-  colnames(backbone) = colnames(adj)
-  rownames(backbone) = rownames(adj)
+  # get edgelist
+  edgelist = get.data.frame(G)
+  colnames(edgelist) = c("from","to","weight")
+
+  # get nodes list
+  nodes = unique(c(edgelist[,1], edgelist[,2]))
+  N = length(nodes)
+
+  # initialize backbone dataframe
+  backbone = NULL
 
   cat("Disparity Filter\n")
   cat("alpha =", alpha, "\n")
   cat("\nOriginal graph\n")
   print(G)
 
-  # undirected
-  if (directed == FALSE)
+  for (i in 1:N) # for each node
   {
-    for (i in 1:N)
+    # get neighbors
+    nei = edgelist[edgelist$from == nodes[i],]
+    nei = rbind(nei, edgelist[edgelist$to == nodes[i],])
+
+    # get degree for node i
+    k_i = length(edgelist$to[edgelist$to == nodes[i]]) + length(edgelist$to[edgelist$from == nodes[i]])
+
+    if (k_i>1)
     {
-      k_i = length(which(adj[i,] > 0))
-      if (k_i > 1)
+      for (j in 1:k_i) # for each neighbor
       {
+        # compute weighted edge
+        p_ij = as.numeric(nei$weight[j]) / sum(as.numeric(nei$weight))
+
+        # VIA INTEGRATION
         #integrand_i = function(x){(1-x)^(k_i-2)}
+        #integration = integrate(integrand_i, lower = 0, upper = p_ij)
+        #alpha_ij = 1 - (k_i - 1) * integration$value
 
-        for (j in 1:N)
+        alpha_ij = (1 - p_ij)^(k_i - 1)
+
+        if (alpha_ij < alpha)
         {
-          p_ij = adj[i,j] / sum(adj[i,])
-
-          #integration = integrate(integrand_i, lower = 0, upper = p_ij)
-          #alpha_ij = 1 - (k_i - 1) * integration$value
-
-          alpha_ij = (1 - p_ij)^(k_i - 1)
-
-          if ( alpha_ij < alpha )
-          {
-            backbone[i,j] = adj[i,j]
-          }
+          backbone = rbind(backbone, c(nei$from[j], nei$to[j], nei$weight[j]))
         }
       }
     }
-
-    index = which(rowSums(backbone) == 0)
-    if (length(index) > 0)
-    {
-      backbone = backbone[-index,-index]
-    }
-
-    G_backbone = graph.adjacency(backbone, weighted = TRUE, mode = "undirected")
-    G_backbone
   }
 
-  # directed
-  if (directed == TRUE)
-  {
-    for (i in 1:N)
-    {
-      k_i = length(which(adj[i,] > 0))
-      if (k_i > 1)
-      {
-        #integrand_i = function(x){(1-x)^(k_i-2)}
-
-        for (j in 1:N)
-        {
-          p_ij = adj[i,j] / sum(adj[i,])
-
-          #integration = integrate(integrand_i, lower = 0, upper = p_ij)
-          #alpha_ij = 1 - (k_i - 1) * integration$value
-
-          alpha_ij = (1 - p_ij)^(k_i - 1)
-
-          if ( alpha_ij < alpha )
-          {
-            backbone[i,j] = adj[i,j]
-          }
-        }
-      }
-    }
-    index = which(rowSums(backbone) == 0)
-    if (length(index) > 0)
-    {
-      backbone = backbone[-index,-index]
-    }
-
-    G_backbone = graph.adjacency(backbone, weighted = TRUE,
-                                 mode = "directed")
-  }
+  colnames(backbone) = c("from","to","weight")
+  backbone = unique(backbone[,c('from','to','weight')])
+  G_backbone = graph.data.frame(backbone, directed = directed)
 
   cat("\nBackbone graph\n")
   print(G_backbone)
