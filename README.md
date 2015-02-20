@@ -22,14 +22,14 @@ G_backbone = get.backbone(graph = G, alpha = 0.05, directed = FALSE)
 ```
 
 ### How to quickly install the `disparityfilter` package in R
-###### Install from CRAN
+##### Install from CRAN
 ```
 install.packages("disparityfilter")
 library(disparityfilter)
 ?get.backbone
 ?network
 ```
-###### Install from GitHub
+##### Install from GitHub
 ```
 install.packages("devtools")
 library(devtools)
