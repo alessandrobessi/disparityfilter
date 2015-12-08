@@ -1,40 +1,24 @@
-# Disparity Filter Algorithm of Weighted Network
+The **disparity filter algorithm** is a network reduction technique to identify the 'backbone' structure of a weighted network without destroying its multi-scale nature. The algorithm was developed by M. Angeles Serrano, Marian Boguna and Alessandro Vespignani in "[Extracting the multiscale backbone of complex weighted networks](http://arxiv.org/abs/0904.2389)", _Proceedings of the National Academy of Sciences_ **106** (16), 2009, doi: [10.1073/pnas.0808904106](http://dx.doi.org/10.1073/pnas.0808904106). This implementation of the algorithm supports both directed and undirected networks.
 
-### Description
-Disparity filter is a network reduction algorithm to extract the backbone structure of both directed and undirected weighted networks. Disparity filter can reduce the network without destroying the multi-scale nature of the network. The algorithm has been developed by M. Angeles Serrano, Marian Boguna, and Alessandro Vespignani in *"Extracting the multiscale backbone of complex weighted networks"*, **Proceedings of the National Academy of Sciences 106 (16): 6483–6488** [doi:10.1073/pnas.0808904106]
+# Installation #
 
+Install the `disparityfilter` package from CRAN:
 
-### Usage
-```
-get.backbone(graph = G, alpha = 0.05, directed = FALSE)
-```
-
-### Arguments
-* `graph`	iGraph graph object.
-* `alpha`	Statistical significance level. By default is set to 0.05.
-* `directed`	Logical, whether the network is directed or undirected. By default is set to FALSE.
-
-### Example
-```
-head(network)
-G = graph.data.frame(network, directed = FALSE)
-G_backbone = get.backbone(graph = G, alpha = 0.05, directed = FALSE)
-```
-
-### How to quickly install the `disparityfilter` package in R
-##### Install from CRAN
-```
+```R
 install.packages("disparityfilter")
-library(disparityfilter)
-?get.backbone
-?network
 ```
-##### Install from GitHub
-```
-install.packages("devtools")
-library(devtools)
+
+Or install it from GitHub with the `devtools` package:
+
+```R
 devtools::install_github('alessandrobessi/disparityfilter')
+```
+
+# Usage #
+
+The algorithm is implemented by the `backbone` function:
+
+```R
 library(disparityfilter)
-?get.backbone
-?network
+?backbone
 ```
