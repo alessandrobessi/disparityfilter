@@ -2,6 +2,7 @@
 % Please edit documentation in R/disparity_filter.R
 \name{backbone}
 \alias{backbone}
+\alias{get.backbone}
 \title{Extract the backbone of a weighted network using the disparity filter}
 \usage{
 backbone(graph, weights = E(graph)$weight, directed = is_directed(graph),

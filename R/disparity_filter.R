@@ -27,6 +27,7 @@
 #' g <- sample_pa(n = 250, m = 5, directed = TRUE)
 #' E(g)$weight <- sample(1:25, ecount(g), replace = TRUE)
 #' backbone(g)
+#' @aliases get.backbone
 #' @importFrom igraph as_data_frame degree E ego is_directed is_igraph
 #' @export
 backbone <- function(graph, weights = E(graph)$weight,
@@ -91,3 +92,5 @@ disparity_filter <- function(G, weights, mode = "all", alpha = 0.05) {
   return(e[ !is.na(e$alpha) & e$alpha < alpha, 1:4 ])
 
 }
+
+get.backbone <- backbone
