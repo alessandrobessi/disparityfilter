@@ -1,6 +1,6 @@
 Package: disparityfilter
 Title: Disparity Filter Algorithm for Weighted Networks
-Version: 2.1.0
+Version: 2.2.0
 Authors@R: c(
     person("Alessandro", "Bessi", email = "alessandro.bessi@iusspavia.it", role = c("aut", "cre")),
     person("Francois", "Briatte", email = "f.briatte@gmail.com", role = "aut"))
@@ -17,5 +17,7 @@ Depends:
 Suggests:
     testthat
 License: GPL (>= 2)
+URL: https://github.com/alessandrobessi/disparityfilter
+BugReports: https://github.com/alessandrobessi/disparityfilter/issues
 LazyData: true
 RoxygenNote: 5.0.1
