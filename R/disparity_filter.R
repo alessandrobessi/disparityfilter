@@ -18,22 +18,26 @@
 #' Extracting the multiscale backbone of complex weighted networks.
 #' \emph{Proceedings of the National Academy of Sciences} 106, 6483-6488.
 #' @examples
-#' # undirected network
-#' g <- sample_pa(n = 250, m = 5, directed = FALSE)
-#' E(g)$weight <- sample(1:25, ecount(g), replace = TRUE)
-#' backbone(g)
+#' if (require(igraph)) {
 #'
-#' # directed network
-#' g <- sample_pa(n = 250, m = 5, directed = TRUE)
-#' E(g)$weight <- sample(1:25, ecount(g), replace = TRUE)
-#' backbone(g)
+#'   # undirected network
+#'   g <- sample_pa(n = 250, m = 5, directed = FALSE)
+#'   E(g)$weight <- sample(1:25, ecount(g), replace = TRUE)
+#'   backbone(g)
+#'   
+#'   # directed network
+#'   g <- sample_pa(n = 250, m = 5, directed = TRUE)
+#'   E(g)$weight <- sample(1:25, ecount(g), replace = TRUE)
+#'   backbone(g)
+#'
+#' }
 #' @aliases get.backbone
 #' @importFrom igraph as_data_frame degree E ego is_directed is_igraph
 #' @export
-backbone <- function(graph, weights = E(graph)$weight,
-                     directed = is_directed(graph), alpha = 0.05) {
+backbone <- function(graph, weights = igraph::E(graph)$weight,
+                     directed = igraph::is_directed(graph), alpha = 0.05) {
 
-  if (!is_igraph(graph)) {
+  if (!igraph::is_igraph(graph)) {
     stop("Not a graph object")
   }
 
@@ -54,8 +58,8 @@ backbone <- function(graph, weights = E(graph)$weight,
 #' @keywords internal
 disparity_filter <- function(G, weights, mode = "all", alpha = 0.05) {
 
-  d = degree(G, mode = mode)
-  e = cbind(as_data_frame(G)[, 1:2 ], weight = weights, alpha = NA)
+  d = igraph::degree(G, mode = mode)
+  e = cbind(igraph::as_data_frame(G)[, 1:2 ], weight = weights, alpha = NA)
   if (mode == "all") {
     e = rbind(e, data.frame(from = e[, 2], to = e[, 1], e[, 3:4 ]))
   }
@@ -71,7 +75,7 @@ disparity_filter <- function(G, weights, mode = "all", alpha = 0.05) {
 
     k = d[u]
 
-    for (v in ego(G, 1, u, mode)[[1]][-1]) {
+    for (v in igraph::ego(G, 1, u, mode)[[1]][-1]) {
 
       ij = switch(substr(mode, 1, 1),
         a = which(e[, 1] == u & e[, 2] == v),
