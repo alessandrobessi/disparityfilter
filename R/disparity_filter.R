@@ -93,4 +93,5 @@ disparity_filter <- function(G, weights, mode = "all", alpha = 0.05) {
 
 }
 
+# for compatibility with previous versions
 get.backbone <- backbone
