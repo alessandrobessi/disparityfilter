@@ -1,6 +1,6 @@
 Package: disparityfilter
 Title: Disparity Filter Algorithm for Weighted Networks
-Version: 2.2.2
+Version: 2.2.3
 Authors@R: c(
     person("Alessandro", "Bessi", email = "alessandro.bessi@iusspavia.it", role = c("aut", "cre")),
     person("Francois", "Briatte", email = "f.briatte@gmail.com", role = "aut"))
