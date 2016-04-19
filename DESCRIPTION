@@ -1,19 +1,20 @@
 Package: disparityfilter
 Title: Disparity Filter Algorithm for Weighted Networks
-Version: 2.2.0
+Version: 2.2.3
 Authors@R: c(
     person("Alessandro", "Bessi", email = "alessandro.bessi@iusspavia.it", role = c("aut", "cre")),
     person("Francois", "Briatte", email = "f.briatte@gmail.com", role = "aut"))
+Maintainer: Alessandro Bessi <alessandro.bessi@iusspavia.it>
 Description: The disparity filter algorithm is a network reduction technique to
     identify the 'backbone' structure of a weighted network without destroying
-    its multi-scale nature. The algorithm was developed by M. Angeles Serrano,
+    its multi-scale nature. The algorithm is documented in M. Angeles Serrano,
     Marian Boguna and Alessandro Vespignani in "Extracting the multiscale
     backbone of complex weighted networks", Proceedings of the National Academy
     of Sciences 106 (16), 2009. This implementation of the algorithm supports
     both directed and undirected networks.
 Depends:
     R (>= 3.1.1),
-    igraph
+    igraph (>= 1.0.0)
 Suggests:
     testthat
 License: GPL (>= 2)

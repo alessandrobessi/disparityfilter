@@ -5,8 +5,8 @@
 \alias{get.backbone}
 \title{Extract the backbone of a weighted network using the disparity filter}
 \usage{
-backbone(graph, weights = E(graph)$weight, directed = is_directed(graph),
-  alpha = 0.05)
+backbone(graph, weights = igraph::E(graph)$weight,
+  directed = igraph::is_directed(graph), alpha = 0.05)
 }
 \arguments{
 \item{graph}{The input graph.}
@@ -30,15 +30,19 @@ Given a weighted graph, \code{backbone} identifies the 'backbone structure'
 of the graph, using the disparity filter algorithm by Serrano et al. (2009).
 }
 \examples{
-# undirected network
-g <- sample_pa(n = 250, m = 5, directed = FALSE)
-E(g)$weight <- sample(1:25, ecount(g), replace = TRUE)
-backbone(g)
+if (require(igraph)) {
 
-# directed network
-g <- sample_pa(n = 250, m = 5, directed = TRUE)
-E(g)$weight <- sample(1:25, ecount(g), replace = TRUE)
-backbone(g)
+  # undirected network
+  g <- sample_pa(n = 250, m = 5, directed = FALSE)
+  E(g)$weight <- sample(1:25, ecount(g), replace = TRUE)
+  backbone(g)
+  
+  # directed network
+  g <- sample_pa(n = 250, m = 5, directed = TRUE)
+  E(g)$weight <- sample(1:25, ecount(g), replace = TRUE)
+  backbone(g)
+
+}
 }
 \author{
 Serrano et al. (2009); R implementation by Alessandro Bessi and
